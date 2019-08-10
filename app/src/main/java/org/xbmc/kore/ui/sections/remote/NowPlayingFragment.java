@@ -256,6 +256,8 @@ public class NowPlayingFragment extends Fragment
      */
     private ApiCallback<String> defaultStringActionCallback = ApiMethod.getDefaultActionCallback();
 
+    private ApiCallback<PlayerType.SeekReturnType> defaultSeekActionCallback = ApiMethod.getDefaultActionCallback();
+
     /**
      * Callback for methods that change the play speed
      */
@@ -295,14 +297,14 @@ public class NowPlayingFragment extends Fragment
 
     @OnClick(R.id.fast_forward)
     public void onFastForwardClicked(View v) {
-        Player.SetSpeed action = new Player.SetSpeed(currentActivePlayerId, GlobalType.IncrementDecrement.INCREMENT);
-        action.execute(hostManager.getConnection(), defaultPlaySpeedChangedCallback, callbackHandler);
+        final Player.Seek action = new Player.Seek(currentActivePlayerId, Player.Seek.FORWARD);
+        action.execute(hostManager.getConnection(), defaultSeekActionCallback, callbackHandler);
     }
 
     @OnClick(R.id.rewind)
     public void onRewindClicked(View v) {
-        Player.SetSpeed action = new Player.SetSpeed(currentActivePlayerId, GlobalType.IncrementDecrement.DECREMENT);
-        action.execute(hostManager.getConnection(), defaultPlaySpeedChangedCallback, callbackHandler);
+        final Player.Seek action = new Player.Seek(currentActivePlayerId, Player.Seek.BACKWARD);
+        action.execute(hostManager.getConnection(), defaultSeekActionCallback, callbackHandler);
     }
 
     @OnClick(R.id.previous)

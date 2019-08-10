@@ -273,6 +273,8 @@ public class RemoteFragment extends Fragment
      */
     private ApiCallback<String> defaultActionCallback = ApiMethod.getDefaultActionCallback();
 
+    private ApiCallback<PlayerType.SeekReturnType> defaultSeekActionCallback = ApiMethod.getDefaultActionCallback();
+
     /**
      * Callbacks for bottom button bar
      */
@@ -362,8 +364,8 @@ public class RemoteFragment extends Fragment
             Player.GoTo action = new Player.GoTo(currentActivePlayerId, Player.GoTo.NEXT);
             action.execute(hostManager.getConnection(), defaultActionCallback, callbackHandler);
         } else {
-            Player.SetSpeed action = new Player.SetSpeed(currentActivePlayerId, GlobalType.IncrementDecrement.INCREMENT);
-            action.execute(hostManager.getConnection(), defaultPlaySpeedChangedCallback, callbackHandler);
+            final Player.Seek action = new Player.Seek(currentActivePlayerId, Player.Seek.FORWARD);
+            action.execute(hostManager.getConnection(), defaultSeekActionCallback, callbackHandler);
         }
     }
 
@@ -373,8 +375,8 @@ public class RemoteFragment extends Fragment
             Player.GoTo action = new Player.GoTo(currentActivePlayerId, Player.GoTo.PREVIOUS);
             action.execute(hostManager.getConnection(), defaultActionCallback, callbackHandler);
         } else {
-            Player.SetSpeed action = new Player.SetSpeed(currentActivePlayerId, GlobalType.IncrementDecrement.DECREMENT);
-            action.execute(hostManager.getConnection(), defaultPlaySpeedChangedCallback, callbackHandler);
+            final Player.Seek action = new Player.Seek(currentActivePlayerId, Player.Seek.BACKWARD);
+            action.execute(hostManager.getConnection(), defaultSeekActionCallback, callbackHandler);
         }
     }
 
